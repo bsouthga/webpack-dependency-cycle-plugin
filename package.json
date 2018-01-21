@@ -21,7 +21,7 @@
     "lint": "tslint -p ./ --fix './src/*.ts'",
     "prettier": "prettier --write --single-quote './src/*.ts'",
     "build": "tsc",
-    "prepublish": "test"
+    "prepublishOnly": "npm run test"
   },
   "dependencies": {
     "graphutil": "^0.0.7"
