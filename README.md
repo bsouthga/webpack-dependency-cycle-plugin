@@ -1,5 +1,7 @@
 # Webpack Dependency Cycle Plugin
 
+[![npm version](https://badge.fury.io/js/webpack-dependency-cycle-plugin.svg)](https://badge.fury.io/js/webpack-dependency-cycle-plugin)
+
 Check for cycles in your modules via [Tarjan's Algorithm](https://en.wikipedia.org/wiki/Tarjan%27s_strongly_connected_components_algorithm)
 
 ## Installation
