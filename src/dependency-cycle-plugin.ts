@@ -10,15 +10,22 @@ interface Module {
 const NODE_MODULES = /node_modules/gi;
 
 export interface DependencyCyclePluginOptions {
+  /**
+   * whether we should check for cycles in node modules. Defaults to false
+   */
   includeNodeModules?: boolean;
+  /**
+   * should we emit an error on finding cycles? defaults to true
+   */
+  failOnError?: boolean;
 }
 
 export class DependencyCyclePlugin {
   constructor(private options: DependencyCyclePluginOptions = {}) {}
 
   public apply(compiler: Compiler) {
+    const { includeNodeModules = false, failOnError = true } = this.options;
     compiler.plugin('emit', (compilation, done) => {
-      const includeNodeModules = this.options.includeNodeModules;
       const stats = compilation.getStats().toJson();
       const graph: AdjacencyList = {};
       const nameHash: { [key: string]: string } = {};
@@ -52,7 +59,7 @@ export class DependencyCyclePlugin {
           .filter(c => c.length > 1 && !c.some(isNodeModule))
           .forEach(logCycleMessage);
 
-        return done(`Found dependency cycles...`);
+        return done();
       }
 
       return done();
@@ -77,8 +84,17 @@ export class DependencyCyclePlugin {
           .map(id => getNameFromHash(id))
           .join('\n  -> ');
 
-        console.error(`Found a cycle:\n${cycleString}`);
+        const message = error(`Found a cycle:\n${cycleString}`);
+        if (failOnError) {
+          compilation.errors.push(message);
+        } else {
+          compilation.warnings.push(message);
+        }
       }
     });
   }
+}
+
+function error(message: string) {
+  return new Error(`webpack-dependency-cycle-plugin: ${message}`);
 }

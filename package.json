@@ -3,6 +3,7 @@
   "version": "0.0.1",
   "description": "Check for dependency cycles using Tarjan's strongly connected components algorithm",
   "main": "dist/index.js",
+  "typings": "dist/index.d.ts",
   "keywords": [
     "webpack",
     "tarjan",
@@ -10,10 +11,13 @@
     "cyclic",
     "dependencies"
   ],
+  "repository": {
+    "url": "https://github.com/bsouthga/webpack-dependency-cycle-plugin"
+  },
   "author": "bsouthga@gmail.com",
   "license": "MIT",
   "scripts": {
-    "test": "npm run prettier && npm run lint",
+    "test": "npm run prettier && npm run lint && npm run build",
     "lint": "tslint -p ./ --fix './src/*.ts'",
     "prettier": "prettier --write --single-quote './src/*.ts'",
     "build": "tsc"
