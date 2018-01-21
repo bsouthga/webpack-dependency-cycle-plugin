@@ -1,0 +1,14 @@
+{
+  "defaultSeverity": "error",
+  "extends": ["tslint:recommended", "tslint-config-prettier"],
+  "rules": {
+    "no-any": true,
+    "quotemark": [true, "single", "jsx-double"],
+    "no-object-literal-type-assertion": true,
+    "no-unnecessary-type-assertion": true,
+    "ordered-imports": false,
+    "object-literal-sort-keys": false,
+    "interface-name": false,
+    "no-console": false
+  }
+}
